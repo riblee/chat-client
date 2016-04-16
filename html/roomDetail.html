@@ -1,0 +1,14 @@
+<div *ngIf="room">
+    <h3>"{{room.name}}"</h3>
+    <div>
+        <label>Id: </label>
+        {{room.id}}
+    </div>
+    <div>
+        <label>Name: </label>
+        {{room.name}}
+    </div>
+    <p>
+        <button (click)="goToRooms()">Back</button>
+    </p>
+</div>

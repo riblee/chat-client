@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firefox OS Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="description" content="FirefoxOS Chat Application">
+    <!--<link rel="stylesheet" href="css/styles.css">-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    <script src="js/jquery-2.1.1.min.js"></script>
+
+    <script src="js/es6-shim.min.js"></script>
+    <script src="js/system-polyfills.js"></script>
+    <script src="js/shims_for_IE.js"></script>
+
+    <script src="js/angular2-polyfills.js"></script>
+    <script src="js/system.src.js"></script>
+    <script src="js/Rx.js"></script>
+    <script src="js/angular2.dev.js"></script>
+    <script src="js/router.dev.js"></script>
+    <script src="js/materialize.min.js"></script>
+
+    <base href="/">
+
+    <script>
+        System.config({
+            packages: {
+                app: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                }
+            }
+        });
+        System.import('app/main')
+                .then(null, console.error.bind(console));
+    </script>
+</head>
+
+<body>
+<chat-app>Loading...</chat-app>
+</body>
+</html>

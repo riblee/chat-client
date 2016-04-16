@@ -1,0 +1,36 @@
+{
+  "name": "ffos-chat",
+  "version": "1.0.0",
+  "description": "FirefoxOS Chat Application",
+  "contributors": [
+    {
+      "name": "Reibl János Dániel",
+      "email": "jani.reibl3@gmail.com"
+    }
+  ],
+  "scripts": {
+    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "lite": "lite-server",
+    "typings": "typings",
+    "postinstall": "typings install"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "angular2": "2.0.0-beta.14",
+    "es6-shim": "^0.35.0",
+    "materialize-css": "^0.97.6",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
+    "socket.io": "^1.4.5",
+    "systemjs": "0.19.25",
+    "zone.js": "0.6.6"
+  },
+  "devDependencies": {
+    "concurrently": "^2.0.0",
+    "lite-server": "^2.2.0",
+    "typescript": "^1.8.9",
+    "typings": "^0.7.12"
+  }
+}
