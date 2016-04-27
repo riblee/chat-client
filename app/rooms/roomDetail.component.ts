@@ -4,10 +4,14 @@
 import {Component, OnInit} from 'angular2/core';
 import {Router, RouteParams} from "angular2/router";
 import {RoomService, Room} from "./room.service";
+import {MdButton} from '@angular2-material/button/button';
 
 @Component({
     selector: 'room-detail-component',
-    templateUrl: '../html/roomDetail.html'
+    templateUrl: 'app/rooms/roomDetail.html',
+    directives: [
+        MdButton
+    ],
 })
 
 export class RoomDetail implements OnInit  {

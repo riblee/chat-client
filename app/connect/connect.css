@@ -1,0 +1,11 @@
+.basic {
+    padding: 0;
+}
+
+.basic md-card-content {
+    padding: 16px;
+}
+
+.card {
+    margin: 16px;
+}

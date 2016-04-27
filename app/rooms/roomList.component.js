@@ -1,4 +1,4 @@
-System.register(['angular2/core', "./room.service", "angular2/router"], function(exports_1, context_1) {
+System.register(['angular2/core', "./room.service", "angular2/router", '@angular2-material/list/list'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', "./room.service", "angular2/router"], function
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, room_service_1, router_1;
+    var core_1, room_service_1, router_1, list_1;
     var RoomListComponent;
     return {
         setters:[
@@ -22,6 +22,9 @@ System.register(['angular2/core', "./room.service", "angular2/router"], function
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (list_1_1) {
+                list_1 = list_1_1;
             }],
         execute: function() {
             RoomListComponent = (function () {
@@ -39,7 +42,10 @@ System.register(['angular2/core', "./room.service", "angular2/router"], function
                 RoomListComponent = __decorate([
                     core_1.Component({
                         selector: 'rooms-component',
-                        templateUrl: '../html/rooms.html'
+                        templateUrl: 'app/rooms/rooms.html',
+                        directives: [
+                            list_1.MD_LIST_DIRECTIVES,
+                        ],
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, room_service_1.RoomService])
                 ], RoomListComponent);

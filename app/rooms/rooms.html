@@ -1,0 +1,6 @@
+<md-nav-list dense>
+    <h3 md-subheader>Connected to</h3>
+    <md-list-item *ngFor="#room of rooms">
+        <a md-line (click)="onSelect(room)">{{ room.name }} as <b>{{ room.nickName}}</b></a>
+    </md-list-item>
+</md-nav-list>

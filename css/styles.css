@@ -1,18 +1,78 @@
-/* Master Styles */
-h1 {
-    color: #369;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 250%;
+md-sidenav-layout {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
-h2, h3 {
-    color: #444;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: lighter;
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 {
+    font-size: 18px;
 }
-body {
-    margin: 2em;
+
+.material-icons.md-24 {
+    font-size: 24px;
 }
-body, input[text], button {
-    color: #888;
-    font-family: Cambria, Georgia;
+
+.material-icons.md-36 {
+    font-size: 36px;
+}
+
+.material-icons.md-48 {
+    font-size: 48px;
+}
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.material-icons.md-dark.md-inactive {
+    color: rgba(0, 0, 0, 0.26);
+}
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light {
+    color: rgba(255, 255, 255, 1);
+}
+
+.material-icons.md-light.md-inactive {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.sidenav {
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.sidenav * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.sidenav md-sidenav {
+    width: 15%;
+    min-width: 100px;
+}
+
+.sidenav md-sidenav [md-button] {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 24px;
+}
+
+.sidenav md-toolbar md-icon {
+    padding: 20px;
+    cursor: pointer;
+}
+
+.sidenav md-toolbar .sidenav-toolbar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.sidenav h1 {
+    font-size: 20px;
 }

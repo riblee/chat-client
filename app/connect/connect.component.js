@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', '@angular2-material/input/input', '@angular2-material/button/button', '@angular2-material/toolbar/toolbar'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,12 +10,21 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, input_1, button_1, toolbar_1;
     var ConnectComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (input_1_1) {
+                input_1 = input_1_1;
+            },
+            function (button_1_1) {
+                button_1 = button_1_1;
+            },
+            function (toolbar_1_1) {
+                toolbar_1 = toolbar_1_1;
             }],
         execute: function() {
             ConnectComponent = (function () {
@@ -24,7 +33,13 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 ConnectComponent = __decorate([
                     core_1.Component({
                         selector: 'connect-component',
-                        templateUrl: '../html/connect.html'
+                        templateUrl: 'app/connect/connect.html',
+                        styleUrls: ['app/connect/connect.css'],
+                        directives: [
+                            input_1.MD_INPUT_DIRECTIVES,
+                            button_1.MdButton,
+                            toolbar_1.MdToolbar
+                        ],
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ConnectComponent);

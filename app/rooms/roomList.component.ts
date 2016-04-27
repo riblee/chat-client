@@ -4,10 +4,14 @@
 import {Component} from 'angular2/core';
 import {Room, RoomService} from "./room.service";
 import {Router} from "angular2/router";
+import {MD_LIST_DIRECTIVES} from '@angular2-material/list/list';
 
 @Component({
     selector: 'rooms-component',
-    templateUrl: '../html/rooms.html'
+    templateUrl: 'app/rooms/rooms.html',
+    directives: [
+        MD_LIST_DIRECTIVES,
+    ],
 })
 
 export class RoomListComponent {

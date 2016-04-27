@@ -1,0 +1,21 @@
+<md-sidenav-layout class="sidenav" fullscreen>
+    <md-sidenav #start>
+        <md-nav-list>
+            <a md-list-item [routerLink]="['Home']" (click)="start.close()">Home</a>
+            <a md-list-item [routerLink]="['Connect']" (click)="start.close()">Connect</a>
+            <a md-list-item [routerLink]="['Rooms']" (click)="start.close()">Rooms</a>
+        </md-nav-list>
+        <button md-mini-fab (click)="start.close()" color="primary">
+            <i class="material-icons">chevron_left</i>
+        </button>
+    </md-sidenav>
+    <div>
+        <md-toolbar color="primary">
+            <i class="material-icons md-36" (click)="start.open()">menu</i>
+            <div class="sidenav-toolbar">
+                <h2>&nbsp;Chat</h2>
+            </div>
+        </md-toolbar>
+        <router-outlet></router-outlet>
+    </div>
+</md-sidenav-layout>
