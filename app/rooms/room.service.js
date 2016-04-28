@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', "angular2/router"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,25 +10,39 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
-    var Room, RoomService;
+    var core_1, router_1;
+    var Message, Room, RoomService;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             }],
         execute: function() {
+            Message = (function () {
+                function Message(isServer, text, nickname) {
+                    this.isServer = isServer;
+                    this.text = text;
+                    this.nickname = nickname;
+                }
+                return Message;
+            }());
+            exports_1("Message", Message);
             Room = (function () {
                 function Room(id, name, nickName) {
                     this.id = id;
                     this.name = name;
                     this.nickName = nickName;
+                    this.messages = [];
                 }
                 return Room;
             }());
             exports_1("Room", Room);
             RoomService = (function () {
-                function RoomService() {
+                function RoomService(_router) {
+                    this._router = _router;
                     this.nextId = 0;
                     this.rooms = [];
                 }
@@ -41,11 +55,16 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                         .then(function (rooms) { return rooms.filter(function (r) { return r.id === +id; })[0]; });
                 };
                 RoomService.prototype.connectToRoom = function (name, nickname) {
-                    this.rooms.push(new Room(this.getNextId(), name, nickname));
+                    var nextId = this.getNextId();
+                    this.rooms.push(new Room(nextId, name, nickname));
+                    // TODO: remove
+                    // TODO: add Message method
+                    this.getRoom(nextId).then(function (room) { return room.messages.push(new Message(false, 'Sample Text', 'Test user')); });
+                    this._router.navigate(['RoomDetail', { id: nextId }]);
                 };
                 RoomService = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [router_1.Router])
                 ], RoomService);
                 return RoomService;
             }());

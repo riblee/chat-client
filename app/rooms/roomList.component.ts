@@ -3,7 +3,7 @@
  */
 import {Component} from 'angular2/core';
 import {Room, RoomService} from "./room.service";
-import {Router} from "angular2/router";
+import {Router, ROUTER_DIRECTIVES} from "angular2/router";
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list/list';
 
 @Component({
@@ -11,6 +11,7 @@ import {MD_LIST_DIRECTIVES} from '@angular2-material/list/list';
     templateUrl: 'app/rooms/rooms.html',
     directives: [
         MD_LIST_DIRECTIVES,
+        ROUTER_DIRECTIVES
     ],
 })
 

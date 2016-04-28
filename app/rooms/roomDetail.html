@@ -1,14 +1,9 @@
 <div *ngIf="room">
-    <h3>"{{room.name}}"</h3>
-    <div>
-        <label>Id: </label>
-        {{room.id}}
-    </div>
-    <div>
-        <label>Name: </label>
-        {{room.name}}
-    </div>
-    <p>
-        <button md-raised-button (click)="goToRooms()">Back</button>
-    </p>
+    <md-nav-list>
+        <h3 md-subheader>{{room.name}} (<b>{{room.nickName}}</b>)</h3>
+        <md-list-item *ngFor="#message of room.messages">
+            <a md-line ><i><b>{{ message.nickname }}:</b></i> {{ message.text }}</a>
+        </md-list-item>
+    </md-nav-list>
+    <button md-raised-button color="secondary" (click)="goToRooms()">Back to Rooms</button>
 </div>

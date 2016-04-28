@@ -1,4 +1,4 @@
-System.register(['angular2/core', "angular2/router", "./room.service", '@angular2-material/button/button'], function(exports_1, context_1) {
+System.register(['angular2/core', "angular2/router", "./room.service", '@angular2-material/button/button', '@angular2-material/list/list', '@angular2-material/toolbar/toolbar'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', "angular2/router", "./room.service", '@angular
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, room_service_1, button_1;
+    var core_1, router_1, room_service_1, button_1, list_1, toolbar_1;
     var RoomDetail;
     return {
         setters:[
@@ -25,6 +25,12 @@ System.register(['angular2/core', "angular2/router", "./room.service", '@angular
             },
             function (button_1_1) {
                 button_1 = button_1_1;
+            },
+            function (list_1_1) {
+                list_1 = list_1_1;
+            },
+            function (toolbar_1_1) {
+                toolbar_1 = toolbar_1_1;
             }],
         execute: function() {
             RoomDetail = (function () {
@@ -47,6 +53,8 @@ System.register(['angular2/core', "angular2/router", "./room.service", '@angular
                         selector: 'room-detail-component',
                         templateUrl: 'app/rooms/roomDetail.html',
                         directives: [
+                            list_1.MD_LIST_DIRECTIVES,
+                            toolbar_1.MdToolbar,
                             button_1.MdButton
                         ],
                     }), 

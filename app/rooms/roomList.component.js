@@ -45,6 +45,7 @@ System.register(['angular2/core', "./room.service", "angular2/router", '@angular
                         templateUrl: 'app/rooms/rooms.html',
                         directives: [
                             list_1.MD_LIST_DIRECTIVES,
+                            router_1.ROUTER_DIRECTIVES
                         ],
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, room_service_1.RoomService])

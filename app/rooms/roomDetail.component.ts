@@ -5,11 +5,15 @@ import {Component, OnInit} from 'angular2/core';
 import {Router, RouteParams} from "angular2/router";
 import {RoomService, Room} from "./room.service";
 import {MdButton} from '@angular2-material/button/button';
+import {MD_LIST_DIRECTIVES} from '@angular2-material/list/list';
+import {MdToolbar} from '@angular2-material/toolbar/toolbar';
 
 @Component({
     selector: 'room-detail-component',
     templateUrl: 'app/rooms/roomDetail.html',
     directives: [
+        MD_LIST_DIRECTIVES,
+        MdToolbar,
         MdButton
     ],
 })
