@@ -1,11 +1,13 @@
-.basic {
-    padding: 0;
+md-card {
+    margin: 16px 16px 16px 0;
+    width: 350px;
 }
 
-.basic md-card-content {
-    padding: 16px;
+md-card.center {
+    margin: auto;
 }
 
-.card {
-    margin: 16px;
+md-card-actions {
+    display: flex;
+    flex-direction: column;
 }

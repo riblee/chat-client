@@ -12,15 +12,21 @@ export class Room {
 
 @Injectable()
 export class RoomService {
-    getRooms() { return roomsPromise; }
+    private nextId;
+    private rooms;
+    constructor() {
+        this.nextId = 0;
+        this.rooms = [];
+    }
+    private getNextId() {
+        return this.nextId++;
+    }
+    getRooms() { return Promise.resolve(this.rooms); }
     getRoom(id: number | string) {
-        return roomsPromise
+        return Promise.resolve(this.rooms)
             .then(rooms => rooms.filter(r=> r.id === +id)[0]);
     }
+    connectToRoom(name, nickname) {
+        this.rooms.push(new Room(this.getNextId(), name, nickname));
+    }
 }
-var ROOMS = [
-    new Room(0, 'Room0', 'nick'),
-    new Room(1, 'Cats', 'catlov3r'),
-    new Room(2, 'Dogs4ever', 'doge')
-];
-var roomsPromise = Promise.resolve(ROOMS);

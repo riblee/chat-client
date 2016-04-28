@@ -1,15 +1,18 @@
-<md-card class="card basic">
-    <md-toolbar color="secondary">Connect to room</md-toolbar>
+<md-card class="center">
+    <md-card-title>Connect</md-card-title>
+    <md-card-subtitle>Connect to room</md-card-subtitle>
     <md-card-content>
-        <table style="width: 100%" cellspacing="0">
-            <tr>
-                <td>
-                    <md-input placeholder="Room Name" style="width: 100%"></md-input>
-                </td>
-                <td>
-                    <md-input placeholder="Nickname" style="width: 100%"></md-input>
-                </td>
-            </tr>
-        </table>
+        <form [ngFormModel]="connectForm">
+            <md-input type="text" ngControl="channel" id="channel" [required]="true"
+                      [dividerColor]="channel.valid ? 'primary' : 'warn'"
+                      placeholder="Room" style="width: 100%"></md-input>
+            <md-input type="text" required
+                      ngControl="nickname" id="nickname" [required]="true"
+                      [dividerColor]="nickname.valid ? 'primary' : 'warn'"
+                      placeholder="Nickname" style="width: 100%"></md-input>
+        </form>
     </md-card-content>
+    <md-card-actions>
+        <button md-raised-button (click)="connect()" [disabled]="!(channel.valid && nickname.valid)">Connect</button>
+    </md-card-actions>
 </md-card>

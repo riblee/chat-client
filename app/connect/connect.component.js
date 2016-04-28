@@ -1,4 +1,4 @@
-System.register(['angular2/core', '@angular2-material/input/input', '@angular2-material/button/button', '@angular2-material/toolbar/toolbar'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', '@angular2-material/input/input', '@angular2-material/card/card', '@angular2-material/button/button', '@angular2-material/toolbar/toolbar', '../rooms/room.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,26 +10,54 @@ System.register(['angular2/core', '@angular2-material/input/input', '@angular2-m
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, input_1, button_1, toolbar_1;
+    var core_1, common_1, input_1, card_1, button_1, toolbar_1, room_service_1;
     var ConnectComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
+            function (common_1_1) {
+                common_1 = common_1_1;
+            },
             function (input_1_1) {
                 input_1 = input_1_1;
+            },
+            function (card_1_1) {
+                card_1 = card_1_1;
             },
             function (button_1_1) {
                 button_1 = button_1_1;
             },
             function (toolbar_1_1) {
                 toolbar_1 = toolbar_1_1;
+            },
+            function (room_service_1_1) {
+                room_service_1 = room_service_1_1;
             }],
         execute: function() {
             ConnectComponent = (function () {
-                function ConnectComponent() {
+                function ConnectComponent(builder, _roomService) {
+                    this.builder = builder;
+                    this.roomService = _roomService;
+                    // TODO: add async validator to check if connected to the given room
+                    this.channel = new common_1.Control('', common_1.Validators.compose([
+                        common_1.Validators.required,
+                        common_1.Validators.minLength(1)
+                    ]));
+                    // TODO. check if nickname is taken
+                    this.nickname = new common_1.Control('', common_1.Validators.compose([
+                        common_1.Validators.required,
+                        common_1.Validators.minLength(1)
+                    ]));
+                    this.connectForm = builder.group({
+                        nickname: this.nickname,
+                        channel: this.channel
+                    });
                 }
+                ConnectComponent.prototype.connect = function () {
+                    this.roomService.connectToRoom(this.connectForm.value.channel, this.connectForm.value.nickname);
+                };
                 ConnectComponent = __decorate([
                     core_1.Component({
                         selector: 'connect-component',
@@ -37,11 +65,13 @@ System.register(['angular2/core', '@angular2-material/input/input', '@angular2-m
                         styleUrls: ['app/connect/connect.css'],
                         directives: [
                             input_1.MD_INPUT_DIRECTIVES,
+                            common_1.FORM_DIRECTIVES,
+                            card_1.MD_CARD_DIRECTIVES,
                             button_1.MdButton,
                             toolbar_1.MdToolbar
                         ],
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [common_1.FormBuilder, room_service_1.RoomService])
                 ], ConnectComponent);
                 return ConnectComponent;
             }());

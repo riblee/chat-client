@@ -11,7 +11,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var Room, RoomService, ROOMS, roomsPromise;
+    var Room, RoomService;
     return {
         setters:[
             function (core_1_1) {
@@ -29,11 +29,19 @@ System.register(['angular2/core'], function(exports_1, context_1) {
             exports_1("Room", Room);
             RoomService = (function () {
                 function RoomService() {
+                    this.nextId = 0;
+                    this.rooms = [];
                 }
-                RoomService.prototype.getRooms = function () { return roomsPromise; };
+                RoomService.prototype.getNextId = function () {
+                    return this.nextId++;
+                };
+                RoomService.prototype.getRooms = function () { return Promise.resolve(this.rooms); };
                 RoomService.prototype.getRoom = function (id) {
-                    return roomsPromise
+                    return Promise.resolve(this.rooms)
                         .then(function (rooms) { return rooms.filter(function (r) { return r.id === +id; })[0]; });
+                };
+                RoomService.prototype.connectToRoom = function (name, nickname) {
+                    this.rooms.push(new Room(this.getNextId(), name, nickname));
                 };
                 RoomService = __decorate([
                     core_1.Injectable(), 
@@ -42,12 +50,6 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 return RoomService;
             }());
             exports_1("RoomService", RoomService);
-            ROOMS = [
-                new Room(0, 'Room0', 'nick'),
-                new Room(1, 'Cats', 'catlov3r'),
-                new Room(2, 'Dogs4ever', 'doge')
-            ];
-            roomsPromise = Promise.resolve(ROOMS);
         }
     }
 });
