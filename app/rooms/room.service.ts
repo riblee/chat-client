@@ -14,12 +14,12 @@ export class Room {
 export class RoomService {
     private nextId;
     private rooms;
+    private getNextId() {
+        return this.nextId++;
+    }
     constructor() {
         this.nextId = 0;
         this.rooms = [];
-    }
-    private getNextId() {
-        return this.nextId++;
     }
     getRooms() { return Promise.resolve(this.rooms); }
     getRoom(id: number | string) {
