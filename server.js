@@ -20,7 +20,7 @@ io.on('connection', (socket) => {
 
     console.log(JSON.stringify(currentConnections[socket.id]));
     console.log(JSON.stringify(msg));
-    io.to(msg.room).emit(msg.room, msg);
+    io.to(msg.room).emit('message', msg);
   });
 
   socket.on('connectToRoom', (obj) => {
@@ -31,7 +31,8 @@ io.on('connection', (socket) => {
     io.to(obj.room).emit('message', {
       server: true,
       nickname: obj.nickname,
-      message: 'Hi! I connected to this room.'
+      message: 'Hi! I connected to this room.',
+      room: obj.room
     });
   });
 });

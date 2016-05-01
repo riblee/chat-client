@@ -42,24 +42,43 @@ System.register(['angular2/core', "angular2/router"], function(exports_1, contex
             exports_1("Room", Room);
             RoomService = (function () {
                 function RoomService(_router) {
+                    var _this = this;
                     this._router = _router;
                     this.nextId = 0;
                     this.rooms = [];
+                    this.socket = io('http://localhost:3001');
+                    this.socket.on('message', function (_msg) {
+                        _this.handleMessage(_msg);
+                    });
                 }
                 RoomService.prototype.getNextId = function () {
                     return this.nextId++;
                 };
-                RoomService.prototype.getRooms = function () { return Promise.resolve(this.rooms); };
+                RoomService.prototype.handleMessage = function (_message) {
+                    var message = new Message(_message.server, _message.message, _message.nickname);
+                    this.getRoomByName(_message.room)
+                        .then(function (room) {
+                        room.messages.push(message);
+                    });
+                };
+                RoomService.prototype.getRooms = function () {
+                    return Promise.resolve(this.rooms);
+                };
                 RoomService.prototype.getRoom = function (id) {
                     return Promise.resolve(this.rooms)
                         .then(function (rooms) { return rooms.filter(function (r) { return r.id === +id; })[0]; });
                 };
+                RoomService.prototype.getRoomByName = function (name) {
+                    return Promise.resolve(this.rooms)
+                        .then(function (rooms) { return rooms.filter(function (r) { return r.name === name; })[0]; });
+                };
                 RoomService.prototype.connectToRoom = function (name, nickname) {
                     var nextId = this.getNextId();
                     this.rooms.push(new Room(nextId, name, nickname));
-                    // TODO: remove
-                    // TODO: add Message method
-                    this.getRoom(nextId).then(function (room) { return room.messages.push(new Message(false, 'Sample Text', 'Test user')); });
+                    this.socket.emit('connectToRoom', {
+                        room: name,
+                        nickname: nickname
+                    });
                     this._router.navigate(['RoomDetail', { id: nextId }]);
                 };
                 RoomService = __decorate([
