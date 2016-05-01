@@ -46,7 +46,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                     this._router = _router;
                     this.nextId = 0;
                     this.rooms = [];
-                    this.socket = io('http://localhost:3001');
+                    this.socket = io('http://chat.rjd.hu:3005');
                     this.socket.on('message', function (_msg) {
                         // TODO: apply?
                         _this.handleMessage(_msg);

@@ -43,7 +43,7 @@ export class RoomService {
     constructor(private _router:Router) {
         this.nextId = 0;
         this.rooms = [];
-        this.socket = io('http://localhost:3001');
+        this.socket = io('http://chat.rjd.hu:3005');
         this.socket.on('message', _msg => {
             // TODO: apply?
             this.handleMessage(_msg);
