@@ -2,7 +2,7 @@
  * Created by riblee on 4/16/16.
  */
 import {Injectable} from 'angular2/core';
-import {Router} from "angular2/router";
+import {Router} from 'angular2/router';
 
 declare var io:any;
 
@@ -45,6 +45,7 @@ export class RoomService {
         this.rooms = [];
         this.socket = io('http://localhost:3001');
         this.socket.on('message', _msg => {
+            // TODO: apply?
             this.handleMessage(_msg);
         });
     }
@@ -71,5 +72,15 @@ export class RoomService {
             nickname: nickname
         });
         this._router.navigate(['RoomDetail', {id: nextId}]);
+    }
+
+    sendMessage(id: number, message:string){
+        this.getRoom(id)
+            .then(room => {
+                this.socket.emit('message', {
+                    room: room.name,
+                    message: message
+                });
+            });
     }
 }

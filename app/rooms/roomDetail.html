@@ -5,5 +5,11 @@
             <a md-line ><i><b>{{ message.nickname }}:</b></i> {{ message.text }}</a>
         </md-list-item>
     </md-nav-list>
+    <form [ngFormModel]="messageForm" (submit)="send()">
+        <md-input type="text" ngControl="message" id="message" [required]="true"
+                  [dividerColor]="message.valid ? 'primary' : 'warn'"
+                  placeholder="Message" style="width: 100%"></md-input>
+    </form>
+    <button md-raised-button type="submit" (click)="send()" [disabled]="!message.valid">Send</button>
     <button md-raised-button color="secondary" (click)="goToRooms()">Back to Rooms</button>
 </div>

@@ -1,4 +1,4 @@
-System.register(['angular2/core', "angular2/router"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -48,6 +48,7 @@ System.register(['angular2/core', "angular2/router"], function(exports_1, contex
                     this.rooms = [];
                     this.socket = io('http://localhost:3001');
                     this.socket.on('message', function (_msg) {
+                        // TODO: apply?
                         _this.handleMessage(_msg);
                     });
                 }
@@ -80,6 +81,16 @@ System.register(['angular2/core', "angular2/router"], function(exports_1, contex
                         nickname: nickname
                     });
                     this._router.navigate(['RoomDetail', { id: nextId }]);
+                };
+                RoomService.prototype.sendMessage = function (id, message) {
+                    var _this = this;
+                    this.getRoom(id)
+                        .then(function (room) {
+                        _this.socket.emit('message', {
+                            room: room.name,
+                            message: message
+                        });
+                    });
                 };
                 RoomService = __decorate([
                     core_1.Injectable(), 

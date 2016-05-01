@@ -1,4 +1,4 @@
-System.register(['angular2/core', "angular2/router", "./room.service", '@angular2-material/button/button', '@angular2-material/list/list', '@angular2-material/toolbar/toolbar'], function(exports_1, context_1) {
+System.register(['angular2/core', "angular2/router", "./room.service", '@angular2-material/button/button', '@angular2-material/list/list', '@angular2-material/toolbar/toolbar', '@angular2-material/input/input', 'angular2/common'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', "angular2/router", "./room.service", '@angular
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, room_service_1, button_1, list_1, toolbar_1;
+    var core_1, router_1, room_service_1, button_1, list_1, toolbar_1, input_1, common_1;
     var RoomDetail;
     return {
         setters:[
@@ -31,22 +31,40 @@ System.register(['angular2/core', "angular2/router", "./room.service", '@angular
             },
             function (toolbar_1_1) {
                 toolbar_1 = toolbar_1_1;
+            },
+            function (input_1_1) {
+                input_1 = input_1_1;
+            },
+            function (common_1_1) {
+                common_1 = common_1_1;
             }],
         execute: function() {
             RoomDetail = (function () {
-                function RoomDetail(_router, _routeParams, _service) {
+                function RoomDetail(_router, _routeParams, _roomService, builder) {
                     this._router = _router;
                     this._routeParams = _routeParams;
-                    this._service = _service;
+                    this._roomService = _roomService;
+                    this.builder = builder;
+                    this.message = new common_1.Control('', common_1.Validators.compose([
+                        common_1.Validators.required,
+                        common_1.Validators.minLength(1)
+                    ]));
+                    this.messageForm = builder.group({
+                        message: this.message
+                    });
                 }
                 RoomDetail.prototype.ngOnInit = function () {
                     var _this = this;
                     var id = this._routeParams.get('id');
-                    this._service.getRoom(id).then(function (room) { return _this.room = room; });
+                    this._roomService.getRoom(id).then(function (room) { return _this.room = room; });
                 };
                 RoomDetail.prototype.goToRooms = function () {
                     // Like <a [routerLink]="['Rooms']">Rooms</a>
                     this._router.navigate(['Rooms']);
+                };
+                RoomDetail.prototype.send = function () {
+                    this._roomService.sendMessage(this._routeParams.get('id'), this.messageForm.value.message);
+                    this.message.updateValue('');
                 };
                 RoomDetail = __decorate([
                     core_1.Component({
@@ -54,11 +72,13 @@ System.register(['angular2/core', "angular2/router", "./room.service", '@angular
                         templateUrl: 'app/rooms/roomDetail.html',
                         directives: [
                             list_1.MD_LIST_DIRECTIVES,
+                            input_1.MD_INPUT_DIRECTIVES,
+                            common_1.FORM_DIRECTIVES,
                             toolbar_1.MdToolbar,
                             button_1.MdButton
                         ],
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, room_service_1.RoomService])
+                    __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, room_service_1.RoomService, common_1.FormBuilder])
                 ], RoomDetail);
                 return RoomDetail;
             }());
