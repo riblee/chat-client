@@ -51,6 +51,11 @@ export class RoomService {
                 // Note: Checking the existence of the Room is unnecessary,
                 // because the Server architecture (Clients separated by Rooms).
                 room.messages.push(message);
+
+                // Only vibrate when the sender is not the user
+                if (_message.nickname !== room.nickName) {
+                    window.navigator.vibrate(200);
+                }
             });
     }
 
