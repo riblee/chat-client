@@ -17,8 +17,10 @@ export class Room {
 
     constructor(public id:number,
                 public name:string,
-                public nickName:string) {
+                public nickName:string,
+                public hasNewMessage:boolean) {
         this.messages = [];
+        this.hasNewMessage = false;
     }
 }
 
@@ -51,6 +53,7 @@ export class RoomService {
                 // Note: Checking the existence of the Room is unnecessary,
                 // because the Server architecture (Clients separated by Rooms).
                 room.messages.push(message);
+                room.hasNewMessage = true;
 
                 // Only vibrate when the sender is not the user
                 if (_message.nickname !== room.nickName) {
@@ -108,7 +111,7 @@ export class RoomService {
      */
     connectToRoom(name:string, nickname:string) {
         let nextId = this.getNextId();
-        this.rooms.push(new Room(nextId, name, nickname));
+        this.rooms.push(new Room(nextId, name, nickname, false));
         this.socket.emit('connectToRoom', {
             room: name,
             nickname: nickname

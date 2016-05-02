@@ -77,7 +77,7 @@ System.register(['angular2/core', 'angular2/common', '@angular2-material/input/i
                     });
                 };
                 /**
-                 * Connects a specified Room.
+                 * Connects to a specified Room.
                  */
                 ConnectComponent.prototype.connect = function () {
                     this.roomService.connectToRoom(this.connectForm.value.channel, this.connectForm.value.nickname);

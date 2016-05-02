@@ -84,7 +84,7 @@ export class ConnectComponent {
     }
 
     /**
-     * Connects a specified Room.
+     * Connects to a specified Room.
      */
     connect() {
         this.roomService.connectToRoom(this.connectForm.value.channel, this.connectForm.value.nickname);

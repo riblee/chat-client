@@ -31,6 +31,10 @@ export class RoomListComponent {
      * @param room
      */
     onSelect(room:Room) {
-        this._router.navigate(['RoomDetail', {id: room.id}]);
+        this._service.getRoom(room.id)
+            .then(room => {
+                room.hasNewMessage = false;
+                this._router.navigate(['RoomDetail', {id: room.id}]);
+            });
     }
 }

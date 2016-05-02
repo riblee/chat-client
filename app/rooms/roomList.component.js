@@ -42,7 +42,12 @@ System.register(['angular2/core', "./room.service", "angular2/router", '@angular
                  * @param room
                  */
                 RoomListComponent.prototype.onSelect = function (room) {
-                    this._router.navigate(['RoomDetail', { id: room.id }]);
+                    var _this = this;
+                    this._service.getRoom(room.id)
+                        .then(function (room) {
+                        room.hasNewMessage = false;
+                        _this._router.navigate(['RoomDetail', { id: room.id }]);
+                    });
                 };
                 RoomListComponent = __decorate([
                     core_1.Component({

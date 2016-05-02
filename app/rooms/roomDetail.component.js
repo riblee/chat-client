@@ -55,7 +55,8 @@ System.register(['angular2/core', "angular2/router", "./room.service", '@angular
                     // Add validators to input field
                     this.message = new common_1.Control('', common_1.Validators.compose([
                         common_1.Validators.required,
-                        common_1.Validators.minLength(1)
+                        common_1.Validators.minLength(1),
+                        common_1.Validators.maxLength(150)
                     ]));
                     // Create a form from input field
                     this.messageForm = builder.group({
@@ -80,10 +81,12 @@ System.register(['angular2/core', "angular2/router", "./room.service", '@angular
                  * Send a Message to the Room with id.
                  */
                 RoomDetail.prototype.send = function () {
-                    // Send message to server
-                    this._roomService.sendMessage(parseInt(this._routeParams.get('id')), this.messageForm.value.message);
-                    // Reset the form
-                    this.message.updateValue('');
+                    if (this.message.valid) {
+                        // Send message to server
+                        this._roomService.sendMessage(parseInt(this._routeParams.get('id')), this.messageForm.value.message);
+                        // Reset the form
+                        this.message.updateValue('');
+                    }
                 };
                 RoomDetail = __decorate([
                     core_1.Component({

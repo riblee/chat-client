@@ -47,7 +47,8 @@ export class RoomDetail implements OnInit {
         // Add validators to input field
         this.message = new Control('', Validators.compose([
             Validators.required,
-            Validators.minLength(1)
+            Validators.minLength(1),
+            Validators.maxLength(150)
         ]));
 
         // Create a form from input field
@@ -75,10 +76,12 @@ export class RoomDetail implements OnInit {
      * Send a Message to the Room with id.
      */
     send() {
-        // Send message to server
-        this._roomService.sendMessage(parseInt(this._routeParams.get('id')), this.messageForm.value.message);
+        if (this.message.valid) {
+            // Send message to server
+            this._roomService.sendMessage(parseInt(this._routeParams.get('id')), this.messageForm.value.message);
 
-        // Reset the form
-        this.message.updateValue('');
+            // Reset the form
+            this.message.updateValue('');
+        }
     }
 }

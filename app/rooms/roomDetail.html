@@ -8,7 +8,9 @@
     <form [ngFormModel]="messageForm" (submit)="send()">
         <md-input type="text" ngControl="message" id="message" [required]="true"
                   [dividerColor]="message.valid ? 'primary' : 'warn'"
-                  placeholder="Message" style="width: 100%"></md-input>
+                  placeholder="Message" style="width: 100%" #messageInput maxLength="150">
+            <md-hint align="end">{{messageInput.characterCount}} / 150</md-hint>
+        </md-input>
     </form>
     <button md-raised-button type="submit" (click)="send()" [disabled]="!message.valid">Send</button>
     <button md-raised-button color="secondary" (click)="goToRooms()">Back to Rooms</button>

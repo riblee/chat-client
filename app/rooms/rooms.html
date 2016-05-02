@@ -1,7 +1,11 @@
 <md-nav-list dense>
     <h3 md-subheader>Connected to</h3>
     <md-list-item *ngFor="#room of rooms">
-        <a md-line (click)="onSelect(room)">{{ room.name }} as <b>{{ room.nickName }}</b></a>
+        <a md-line (click)="onSelect(room)">
+            {{ room.name }} as
+            <b> {{ room.nickName }}</b>
+            <b *ngIf="room.hasNewMessage"> (New Message)</b>
+        </a>
     </md-list-item>
 </md-nav-list>
 <button md-raised-button [routerLink]="['Connect']">Connect</button>

@@ -31,11 +31,13 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
             }());
             exports_1("Message", Message);
             Room = (function () {
-                function Room(id, name, nickName) {
+                function Room(id, name, nickName, hasNewMessage) {
                     this.id = id;
                     this.name = name;
                     this.nickName = nickName;
+                    this.hasNewMessage = hasNewMessage;
                     this.messages = [];
+                    this.hasNewMessage = false;
                 }
                 return Room;
             }());
@@ -77,6 +79,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                         // Note: Checking the existence of the Room is unnecessary,
                         // because the Server architecture (Clients separated by Rooms).
                         room.messages.push(message);
+                        room.hasNewMessage = true;
                         // Only vibrate when the sender is not the user
                         if (_message.nickname !== room.nickName) {
                             window.navigator.vibrate(200);
@@ -115,7 +118,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                  */
                 RoomService.prototype.connectToRoom = function (name, nickname) {
                     var nextId = this.getNextId();
-                    this.rooms.push(new Room(nextId, name, nickname));
+                    this.rooms.push(new Room(nextId, name, nickname, false));
                     this.socket.emit('connectToRoom', {
                         room: name,
                         nickname: nickname
