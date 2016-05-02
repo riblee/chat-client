@@ -16,6 +16,10 @@ import {MdToolbar} from '@angular2-material/toolbar/toolbar';
 
 import {RoomService} from '../rooms/room.service';
 
+interface ValidationResult {
+    [key:string]:boolean;
+}
+
 @Component({
     selector: 'connect-component',
     templateUrl: 'app/connect/connect.html',
@@ -42,11 +46,13 @@ export class ConnectComponent {
      */
     constructor(private builder: FormBuilder, _roomService: RoomService) {
         this.roomService = _roomService;
-        // TODO: add async validator to check if connected to the given room
-        this.channel = new Control('', Validators.compose([
-            Validators.required,
-            Validators.minLength(1)
-        ]));
+        this.channel = new Control('',
+            Validators.compose([
+                Validators.required,
+                Validators.minLength(1)
+            ]),
+            this.isConnectedToRoom.bind(this));
+
         // TODO. check if nickname is taken
         this.nickname = new Control('', Validators.compose([
             Validators.required,
@@ -56,6 +62,24 @@ export class ConnectComponent {
         this.connectForm = builder.group({
             nickname: this.nickname,
             channel: this.channel
+        });
+    }
+
+    /**
+     * Asynchronous function to check if the user connected to a Room.
+     * @param {Control} control - The Room name to check
+     * @returns {Promise<ValidationResult>} - The result
+     */
+    isConnectedToRoom(control: Control): Promise<ValidationResult> {
+        return new Promise((resolve, reject) => {
+            this.roomService.getRoomByName(control.value)
+                .then((room) => {
+                    if (!!room) {
+                        return resolve({alreadyConnected: true });
+                    }
+
+                    resolve(null);
+                });
         });
     }
 

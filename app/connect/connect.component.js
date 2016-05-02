@@ -45,11 +45,10 @@ System.register(['angular2/core', 'angular2/common', '@angular2-material/input/i
                 function ConnectComponent(builder, _roomService) {
                     this.builder = builder;
                     this.roomService = _roomService;
-                    // TODO: add async validator to check if connected to the given room
                     this.channel = new common_1.Control('', common_1.Validators.compose([
                         common_1.Validators.required,
                         common_1.Validators.minLength(1)
-                    ]));
+                    ]), this.isConnectedToRoom.bind(this));
                     // TODO. check if nickname is taken
                     this.nickname = new common_1.Control('', common_1.Validators.compose([
                         common_1.Validators.required,
@@ -60,6 +59,23 @@ System.register(['angular2/core', 'angular2/common', '@angular2-material/input/i
                         channel: this.channel
                     });
                 }
+                /**
+                 * Asynchronous function to check if the user connected to a Room.
+                 * @param {Control} control - The Room name to check
+                 * @returns {Promise<ValidationResult>} - The result
+                 */
+                ConnectComponent.prototype.isConnectedToRoom = function (control) {
+                    var _this = this;
+                    return new Promise(function (resolve, reject) {
+                        _this.roomService.getRoomByName(control.value)
+                            .then(function (room) {
+                            if (!!room) {
+                                return resolve({ alreadyConnected: true });
+                            }
+                            resolve(null);
+                        });
+                    });
+                };
                 /**
                  * Connects a specified Room.
                  */

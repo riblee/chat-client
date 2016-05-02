@@ -1,6 +1,13 @@
 <md-card class="center">
     <md-card-title>Connect</md-card-title>
-    <md-card-subtitle>Connect to room</md-card-subtitle>
+    <md-card-subtitle *ngIf="channel.errors">
+        <p *ngIf="channel.errors.alreadyConnected" color="warn">
+            You already connected to this Room
+        </p>
+    </md-card-subtitle>
+    <md-card-subtitle *ngIf="!channel.errors || channel.valid || channel.value === ''">
+        Connect to a Room
+    </md-card-subtitle>
     <md-card-content>
         <form [ngFormModel]="connectForm">
             <md-input type="text" ngControl="channel" id="channel" [required]="true"
