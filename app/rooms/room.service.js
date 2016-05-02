@@ -41,6 +41,10 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
             }());
             exports_1("Room", Room);
             RoomService = (function () {
+                /**
+                 * RoomService Constructor.
+                 * @param _router
+                 */
                 function RoomService(_router) {
                     var _this = this;
                     this._router = _router;
@@ -52,27 +56,59 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                         _this.handleMessage(_msg);
                     });
                 }
+                /**
+                 * Auto-increment Room id generator.
+                 * @returns {number} - Unique Room id.
+                 */
                 RoomService.prototype.getNextId = function () {
                     return this.nextId++;
                 };
+                /**
+                 * The Message Event handler.
+                 * @param {object} _message - The Message object from the Server.
+                 */
                 RoomService.prototype.handleMessage = function (_message) {
+                    // Create a Message with the information from Server.
                     var message = new Message(_message.server, _message.message, _message.nickname);
+                    // Get the Room
                     this.getRoomByName(_message.room)
                         .then(function (room) {
+                        // Add the Message to it.
+                        // Note: Checking the existence of the Room is unnecessary,
+                        // because the Server architecture (Clients separated by Rooms).
                         room.messages.push(message);
                     });
                 };
+                /**
+                 * Returns the Rooms
+                 * @returns {Promise<Room>} - The Rooms.
+                 */
                 RoomService.prototype.getRooms = function () {
                     return Promise.resolve(this.rooms);
                 };
+                /**
+                 * Returns a Room with the specified id.
+                 * @param {number} id - The id of the Room.
+                 * @returns {Promise<Room>|Promise<undefined>} - The room with the given id or undefined.
+                 */
                 RoomService.prototype.getRoom = function (id) {
                     return Promise.resolve(this.rooms)
                         .then(function (rooms) { return rooms.filter(function (r) { return r.id === +id; })[0]; });
                 };
+                /**
+                 * Returns a Room with the specified name.
+                 * @param {string} name - The name of the Room.
+                 * @returns {Promise<Room>|Promise<undefined>} - The room with the given name or undefined.
+                 */
                 RoomService.prototype.getRoomByName = function (name) {
                     return Promise.resolve(this.rooms)
                         .then(function (rooms) { return rooms.filter(function (r) { return r.name === name; })[0]; });
                 };
+                /**
+                 * Send a connect request to a specified room with nickname.
+                 * @param {string} name - The Room.
+                 * @param {string} nickname - The user's name in the  Room.
+                 */
                 RoomService.prototype.connectToRoom = function (name, nickname) {
                     var nextId = this.getNextId();
                     this.rooms.push(new Room(nextId, name, nickname));
@@ -82,6 +118,11 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                     });
                     this._router.navigate(['RoomDetail', { id: nextId }]);
                 };
+                /**
+                 * Send a Message to a room specified by it's id.
+                 * @param {number} id - The Room's id.
+                 * @param {string} message - The Message.
+                 */
                 RoomService.prototype.sendMessage = function (id, message) {
                     var _this = this;
                     this.getRoom(id)

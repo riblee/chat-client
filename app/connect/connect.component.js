@@ -37,6 +37,11 @@ System.register(['angular2/core', 'angular2/common', '@angular2-material/input/i
             }],
         execute: function() {
             ConnectComponent = (function () {
+                /**
+                 * ConnectComponent Constructor.
+                 * @param builder
+                 * @param _roomService
+                 */
                 function ConnectComponent(builder, _roomService) {
                     this.builder = builder;
                     this.roomService = _roomService;
@@ -55,6 +60,9 @@ System.register(['angular2/core', 'angular2/common', '@angular2-material/input/i
                         channel: this.channel
                     });
                 }
+                /**
+                 * Connects a specified Room.
+                 */
                 ConnectComponent.prototype.connect = function () {
                     this.roomService.connectToRoom(this.connectForm.value.channel, this.connectForm.value.nickname);
                 };

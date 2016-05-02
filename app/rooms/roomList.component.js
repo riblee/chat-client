@@ -34,8 +34,13 @@ System.register(['angular2/core', "./room.service", "angular2/router", '@angular
                 }
                 RoomListComponent.prototype.ngOnInit = function () {
                     var _this = this;
+                    // Populate Rooms from RoomService.
                     this._service.getRooms().then(function (rooms) { return _this.rooms = rooms; });
                 };
+                /**
+                 * Navigate to RoomDetail view of the selected Room.
+                 * @param room
+                 */
                 RoomListComponent.prototype.onSelect = function (room) {
                     this._router.navigate(['RoomDetail', { id: room.id }]);
                 };

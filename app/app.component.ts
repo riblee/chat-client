@@ -24,6 +24,9 @@ import {RoomDetail} from "./rooms/roomDetail.component";
     providers: [ROUTER_PROVIDERS, RoomService]
 })
 
+/**
+ * Initialize the Router
+ */
 @RouteConfig([
     {
         path: '/home',

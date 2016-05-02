@@ -40,30 +40,49 @@ System.register(['angular2/core', "angular2/router", "./room.service", '@angular
             }],
         execute: function() {
             RoomDetail = (function () {
+                /**
+                 * RoomDetail Constructor.
+                 * @param _router
+                 * @param _routeParams
+                 * @param _roomService
+                 * @param builder
+                 */
                 function RoomDetail(_router, _routeParams, _roomService, builder) {
                     this._router = _router;
                     this._routeParams = _routeParams;
                     this._roomService = _roomService;
                     this.builder = builder;
+                    // Add validators to input field
                     this.message = new common_1.Control('', common_1.Validators.compose([
                         common_1.Validators.required,
                         common_1.Validators.minLength(1)
                     ]));
+                    // Create a form from input field
                     this.messageForm = builder.group({
                         message: this.message
                     });
                 }
                 RoomDetail.prototype.ngOnInit = function () {
                     var _this = this;
+                    // Get the Room to display it
                     var id = this._routeParams.get('id');
                     this._roomService.getRoom(id).then(function (room) { return _this.room = room; });
                 };
+                /**
+                 * Navigate back to RoomList.
+                 */
                 RoomDetail.prototype.goToRooms = function () {
                     // Like <a [routerLink]="['Rooms']">Rooms</a>
                     this._router.navigate(['Rooms']);
                 };
+                /**
+                 * Form submit handler.
+                 * Send a Message to the Room with id.
+                 */
                 RoomDetail.prototype.send = function () {
-                    this._roomService.sendMessage(this._routeParams.get('id'), this.messageForm.value.message);
+                    // Send message to server
+                    this._roomService.sendMessage(parseInt(this._routeParams.get('id')), this.messageForm.value.message);
+                    // Reset the form
                     this.message.updateValue('');
                 };
                 RoomDetail = __decorate([

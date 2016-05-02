@@ -33,31 +33,52 @@ export class RoomDetail implements OnInit {
     messageForm:ControlGroup;
     message:Control;
 
+    /**
+     * RoomDetail Constructor.
+     * @param _router
+     * @param _routeParams
+     * @param _roomService
+     * @param builder
+     */
     constructor(private _router:Router,
                 private _routeParams:RouteParams,
                 private _roomService:RoomService,
                 private builder: FormBuilder) {
+        // Add validators to input field
         this.message = new Control('', Validators.compose([
             Validators.required,
             Validators.minLength(1)
         ]));
+
+        // Create a form from input field
         this.messageForm = builder.group({
             message: this.message
         });
     }
 
     ngOnInit() {
+        // Get the Room to display it
         let id = this._routeParams.get('id');
         this._roomService.getRoom(id).then(room => this.room = room);
     }
 
+    /**
+     * Navigate back to RoomList.
+     */
     goToRooms() {
         // Like <a [routerLink]="['Rooms']">Rooms</a>
         this._router.navigate(['Rooms']);
     }
 
+    /**
+     * Form submit handler.
+     * Send a Message to the Room with id.
+     */
     send() {
-        this._roomService.sendMessage(this._routeParams.get('id'), this.messageForm.value.message);
+        // Send message to server
+        this._roomService.sendMessage(parseInt(this._routeParams.get('id')), this.messageForm.value.message);
+
+        // Reset the form
         this.message.updateValue('');
     }
 }

@@ -16,14 +16,21 @@ import {MD_LIST_DIRECTIVES} from '@angular2-material/list/list';
 })
 
 export class RoomListComponent {
-    rooms: Room[];
-    constructor(
-        private _router: Router,
-        private _service: RoomService) { }
+    rooms:Room[];
+
+    constructor(private _router:Router,
+                private _service:RoomService) {}
+
     ngOnInit() {
+        // Populate Rooms from RoomService.
         this._service.getRooms().then(rooms => this.rooms = rooms)
     }
-    onSelect(room: Room) {
-        this._router.navigate( ['RoomDetail', { id: room.id }] );
+
+    /**
+     * Navigate to RoomDetail view of the selected Room.
+     * @param room
+     */
+    onSelect(room:Room) {
+        this._router.navigate(['RoomDetail', {id: room.id}]);
     }
 }

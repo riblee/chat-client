@@ -35,6 +35,11 @@ export class ConnectComponent {
     nickname: Control;
     roomService: RoomService;
 
+    /**
+     * ConnectComponent Constructor.
+     * @param builder
+     * @param _roomService
+     */
     constructor(private builder: FormBuilder, _roomService: RoomService) {
         this.roomService = _roomService;
         // TODO: add async validator to check if connected to the given room
@@ -54,6 +59,9 @@ export class ConnectComponent {
         });
     }
 
+    /**
+     * Connects a specified Room.
+     */
     connect() {
         this.roomService.connectToRoom(this.connectForm.value.channel, this.connectForm.value.nickname);
     }
