@@ -2,6 +2,7 @@
   "version": "0.0.1",
   "name": "Chat",
   "description": "FirefoxOS Chat Application",
+  "package_path": "http://chat.rjd.hu/ffos-chat.zip",
   "launch_path": "/index.html",
   "icons": {
     "16": "/img/icons/icon16x16.png",
