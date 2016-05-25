@@ -1,8 +1,8 @@
 /**
  * Created by riblee on 4/16/16.
  */
-import {Component, OnInit} from 'angular2/core';
-import {Router, RouteParams} from "angular2/router";
+import {Component, OnInit} from '@angular/core';
+import {Router, RouteParams} from "@angular/router-deprecated";
 import {RoomService, Room} from "./room.service";
 import {MdButton} from '@angular2-material/button/button';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list/list';
@@ -14,7 +14,7 @@ import {
     Control,
     ControlGroup,
     FORM_DIRECTIVES
-} from 'angular2/common';
+} from '@angular/common';
 
 @Component({
     selector: 'room-detail-component',

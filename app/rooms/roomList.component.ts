@@ -1,9 +1,9 @@
 /**
  * Created by riblee on 4/11/16.
  */
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {Room, RoomService} from "./room.service";
-import {Router, ROUTER_DIRECTIVES} from "angular2/router";
+import {Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list/list';
 
 @Component({

@@ -1,14 +1,14 @@
 /**
  * Created by riblee on 4/11/16.
  */
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import {
     FormBuilder,
     Validators,
     Control,
     ControlGroup,
     FORM_DIRECTIVES
-} from 'angular2/common';
+} from '@angular/common';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input/input';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card/card';
 import {MdButton} from '@angular2-material/button/button';

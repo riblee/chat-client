@@ -1,11 +1,21 @@
 /**
  * Created by riblee on 4/11/16.
  */
-import {bootstrap}    from 'angular2/platform/browser';
-import {LocationStrategy, PathLocationStrategy} from 'angular2/router';
-import {AppComponent} from './app.component';
-import {provide} from "angular2/core";
+import { bootstrap }    from '@angular/platform-browser-dynamic';
+import { HTTP_PROVIDERS } from '@angular/http';
+import { provideDB, DBSchema } from './database.service';
 
-bootstrap(AppComponent,[
-    provide(LocationStrategy, { useClass: PathLocationStrategy })
+const roomSchema: DBSchema = {
+    version: 1,
+    name: 'todo_app',
+    stores: {
+        'rooms': {autoIncrement: true}
+    }
+};
+
+import { AppComponent } from './app.component';
+
+bootstrap(AppComponent, [
+    provideDB(roomSchema),
+    HTTP_PROVIDERS
 ]);

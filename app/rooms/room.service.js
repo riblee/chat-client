@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router-deprecated', '../database.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,15 +10,18 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1;
+    var core_1, router_deprecated_1, database_service_1;
     var Message, Room, RoomService;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (router_1_1) {
-                router_1 = router_1_1;
+            function (router_deprecated_1_1) {
+                router_deprecated_1 = router_deprecated_1_1;
+            },
+            function (database_service_1_1) {
+                database_service_1 = database_service_1_1;
             }],
         execute: function() {
             Message = (function () {
@@ -46,12 +49,15 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                 /**
                  * RoomService Constructor.
                  * @param _router
+                 * @param db
                  */
-                function RoomService(_router) {
+                function RoomService(_router, db) {
                     var _this = this;
                     this._router = _router;
+                    this.db = db;
                     this.nextId = 0;
                     this.rooms = [];
+                    // this.db.getAll
                     this.socket = io('http://chat.rjd.hu:3005');
                     this.socket.on('message', function (_msg) {
                         // TODO: apply?
@@ -119,6 +125,12 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                 RoomService.prototype.connectToRoom = function (name, nickname) {
                     var nextId = this.getNextId();
                     this.rooms.push(new Room(nextId, name, nickname, false));
+                    // this.db.insert('rooms', [{id: nextId, name, nickname, hasNewMessage: false}])
+                    //     .subscribe(
+                    //         rec => console.log(rec),
+                    //         err => console.error(err),
+                    //         () => console.log('inserted room')
+                    //     );
                     this.socket.emit('connectToRoom', {
                         room: name,
                         nickname: nickname
@@ -142,7 +154,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                 };
                 RoomService = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [router_1.Router])
+                    __metadata('design:paramtypes', [router_deprecated_1.Router, database_service_1.Database])
                 ], RoomService);
                 return RoomService;
             }());

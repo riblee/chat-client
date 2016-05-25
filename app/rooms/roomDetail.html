@@ -1,7 +1,7 @@
 <div *ngIf="room">
     <md-nav-list>
         <h3 md-subheader>{{room.name}} (<b>{{room.nickName}}</b>)</h3>
-        <md-list-item *ngFor="#message of room.messages">
+        <md-list-item *ngFor="let message of room.messages">
             <a md-line ><i><b>{{ message.nickname }}:</b></i> {{ message.text }}</a>
         </md-list-item>
     </md-nav-list>

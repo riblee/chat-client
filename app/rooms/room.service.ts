@@ -1,8 +1,9 @@
 /**
  * Created by riblee on 4/16/16.
  */
-import {Injectable} from 'angular2/core';
-import {Router} from 'angular2/router';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router-deprecated';
+import {Database, provideDB, DBSchema} from '../database.service';
 
 declare var io:any;
 
@@ -65,10 +66,13 @@ export class RoomService {
     /**
      * RoomService Constructor.
      * @param _router
+     * @param db
      */
-    constructor(private _router:Router) {
+    constructor(private _router:Router,
+                private db: Database) {
         this.nextId = 0;
         this.rooms = [];
+        // this.db.getAll
         this.socket = io('http://chat.rjd.hu:3005');
         this.socket.on('message', _msg => {
             // TODO: apply?
@@ -112,6 +116,12 @@ export class RoomService {
     connectToRoom(name:string, nickname:string) {
         let nextId = this.getNextId();
         this.rooms.push(new Room(nextId, name, nickname, false));
+        // this.db.insert('rooms', [{id: nextId, name, nickname, hasNewMessage: false}])
+        //     .subscribe(
+        //         rec => console.log(rec),
+        //         err => console.error(err),
+        //         () => console.log('inserted room')
+        //     );
         this.socket.emit('connectToRoom', {
             room: name,
             nickname: nickname
